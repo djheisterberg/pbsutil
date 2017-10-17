@@ -8,7 +8,7 @@ LIBS = -L$(PBS_INSTALL)/lib -ltorque
 %.o:	%.cpp
 	$(CXX) -c $(CFLAGS) $<
 
-jstat:	jstat.o systemrules.o oakleyrules.o rubyrules.o owensrules.o
+jstat:	job.o jstat.o systemrules.o oakleyrules.o rubyrules.o owensrules.o
 	$(LD) $(LIBS) -o $@ $^
 
 startCounts:	startCounts.o
