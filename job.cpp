@@ -49,9 +49,11 @@ void Job::clear() {
    nodeAttributes.clear();
 }
 
+
 int parseNodes(char *ns, std::unordered_map<std::string, std::string>& na) {
    int nNodes = 0;
-   if (ns) {
+
+   if (ns) { // if ns is not NULL 
       int is = 0;
       char c;
       while (c = ns[is++]) {
@@ -87,6 +89,8 @@ int parseNodes(char *ns, std::unordered_map<std::string, std::string>& na) {
    return nNodes;
 }
 
+
+// assign values to ppn and gpus from nodeAttributes, assign values to nNodes using parseNodes. 
 void Job::initializeNodes() {
    if (nNodes < 0) {
       nNodes = parseNodes(nodesString, nodeAttributes);
