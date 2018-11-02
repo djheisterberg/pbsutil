@@ -17,5 +17,5 @@ int OwensRules::getMaxPPN() {
 }
 
 int OwensRules::getMemLimitMB() {
-   return 126 * 1024;
+   return 128 * 1024;
 }
