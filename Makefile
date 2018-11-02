@@ -1,4 +1,4 @@
-EXES = exe startCounts gpuJobs jsAccount softwareJobs
+EXES = jstat startCounts gpuJobs jsAccount softwareJobs
 
 CXX = icc
 CFLAGS = -std=c++11 -I$(PBS_INSTALL)/include -O3
@@ -8,7 +8,7 @@ LIBS = -L$(PBS_INSTALL)/lib -ltorque
 %.o:	%.cpp
 	$(CXX) -c $(CFLAGS) $<
 
-exe:	job.o systemrules.o oakleyrules.o rubyrules.o owensrules.o jmanager.o exe.o
+jstat:	job.o jstat.o systemrules.o oakleyrules.o rubyrules.o owensrules.o pitzerrules.o
 	$(LD) $(LIBS) -o $@ $^
 
 startCounts:	startCounts.o

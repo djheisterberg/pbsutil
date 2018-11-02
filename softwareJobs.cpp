@@ -11,14 +11,14 @@
 #define SOFTWARE "software"
 #define ANY_SOFTWARE " "
 
-struct attropl* createSelAttrs() {
+struct attropl* createSelAttrs(char *software) {
 
    struct attropl* aAttrs = (struct attropl *) malloc(sizeof(struct attropl));
    aAttrs->next = NULL;
    aAttrs->name = ATTR_l;
-   aAttrs->resource = SOFTWARE;
-   aAttrs->value = ANY_SOFTWARE;
-   aAttrs->op = GE;
+   aAttrs->resource = "gattr";
+   aAttrs->value = software;
+   aAttrs->op = EQ;
 
    return aAttrs;
 }
@@ -46,7 +46,7 @@ int countSoftwareJobs(int cnx, char *software, int *nRunning, int *nQueued, int 
    *nQueued = 0;
    *nBlocked = 0;
 
-   struct attropl* aAttrs = createSelAttrs();
+   struct attropl* aAttrs = createSelAttrs(software);
    struct batch_status* batchStatus = pbs_selstat(cnx, aAttrs, NULL);
    if (!batchStatus) {
       printf("No batch status for software requests\n");
@@ -157,6 +157,7 @@ int main(int argc, char** argv) {
    int nRunning, nQueued, nBlocked = 0;
    for (int i = optind; i < argc; i++) {
       char *software = argv[i];
+      printf("checking %s\n", software);
       if (countSoftwareJobs(cnx, software, &nRunning, &nQueued, &nBlocked, longFormat)) {
          printf("%s: %d running, %d queued, %d blocked\n", software, nRunning, nQueued, nBlocked);
       }
